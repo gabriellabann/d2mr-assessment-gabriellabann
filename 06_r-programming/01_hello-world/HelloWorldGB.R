@@ -1,27 +1,43 @@
-hello_world <- function(name, languages, current_time = Sys.time()){
+library(stringr)
+
+hello_world <- function(name, n_language, current_time = Sys.time()){
   date_and_time <- as.POSIXct(current_time, format="%Y-%m-%d %H:%M:%OS")
   hour_of_day <- as.numeric(format(date_and_time, "%H"))
-  if(12 > hour_of_day > 6){
-    return("morning")
-  }
-  if(17 > hour_of_day > 12){
-    return("afternoon")
-  }
-  if(22 > hour_of_day > 17){
-    return("evening")
-  }
-  if(6 > hour_of_day > 22){
-    return("night")
-  }
-  print(hour_of_day)
-  #languages <- c(paste0("Hello ", name, "!"), 
-  # "Anyeonghaseyo",
-  # paste0("Ni hao, ", name, ", jintian zenmeyang?"),
-  # paste0("Hola",name, "como estas?"),
-  # paste0(name, "! I'm so glad you're here!"),
-  # "OMG hey!",
-  # paste0("sup ", name, "?"))
-  return(hour_of_day)
-  }
+  
+  title_name <- str_to_title(name)
+  
+  language_types <- c(paste0("Hello ", title_name, "!"), 
+                       "Anyeonghaseyo",
+                       paste0("Ni hao ", title_name, " jintian zenmeyang?"),
+                       paste0("Hola ", title_name, " como estas?"),
+                       paste0("Xin chao ", title_name, " ban knoe kong?"),
+                       "Que pasa causa?",
+                       paste0("gwenchana", title_name, "?"))
+  random_number <- sample(1:7, 1) # generates random number between 0 and 7
 
-hello_world("GB", "LANG")
+
+  day_time <- ""
+  if((hour_of_day < 12) && (hour_of_day >= 6)){
+    day_time <- "morning"
+  }
+  if((hour_of_day < 17) && (hour_of_day >= 12)){
+    day_time <- "afternoon"
+  }
+  if((hour_of_day < 22) && (hour_of_day >= 17)){
+    day_time <- "evening"
+  }
+  if((hour_of_day < 6) && (hour_of_day >= 22)){
+    day_time <- "night"
+  }
+  if(day_time == "") {
+    day_time = "errorintimeofday"
+  }
+  return(paste0("Good ", day_time,", ", language_types[random_number]))
+  
+
+}
+print(hello_world("GABRIELLA"))
+
+library(stringr)
+
+
